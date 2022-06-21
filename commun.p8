@@ -5,12 +5,6 @@ function _init()
 	p={x=60,y=60,speed=1}
 	bullets={}
 	pigeons={}
-	sfx(1)
-	pigeons_killed=0
---if pigeon.life==0 then
---	del(pigeons,pigeon)
---	pigeons_killed+=1
---end
 	explosions={}
 end
 
@@ -18,13 +12,7 @@ function _update60()
 	if (btn(➡️))	p.x+=p.speed
 	if (btn(⬅️)) p.x-=p.speed
 	if (btnp(❎)) shoot()
-	if (btn(🅾️)) jump()
-	if p.x < 0 then
-		p.x = 0
-	end
-	if p.x > 1000 then
-		p.x = 1000
-	end
+	if (btn(🅾️)) jump() 
 	
 	update_bullets()
 	if #pigeons==0 then
@@ -76,7 +64,6 @@ function shoot()
 		speed=4
 	}
 	add(bullets, new_bullet)
-	sfx(0)
 end
 
 function update_bullets()
@@ -98,7 +85,7 @@ end
 
 function spawn_pigeons()
 	add(pigeons,{
-		x=p.x+68,
+		x=130,
 		y=10
 	})
 end
@@ -106,7 +93,7 @@ end
 function update_pigeons()
 	for pigeon in all(pigeons) do
 		pigeon.x -= 0.5
-		if pigeon.x < p.x-68 then
+		if pigeon.x < 0 then
 			del(pigeons,pigeon)
 		end
 	
@@ -114,7 +101,7 @@ function update_pigeons()
 		--collision
 		for b in all(bullets) do
 			if collision(pigeon,b) then
-		 	create_explosions(b.x,b.y)
+		 	create_explosions(pigeon.x,pigeon.y)
 				del(bullets,b)
 				del(pigeons,pigeon)
 			end
@@ -467,13 +454,4 @@ __map__
 3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e
 3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e3e00000000000000000000000000000000000000000000
 __sfx__
-<<<<<<< HEAD
-010c03032d0532d0532d0532d0532d0532d0532d0532d053000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-0111000021150211501c1501d1501f1501f1501d1501c1501a1501a1501a1501d15021150211501f1501d1501c1501c1501c1501d1501f1501f15021150211501d1501d1501a150000001a150000000000000000
-011000000c0531d10034655000000c152000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-010f01010000018233000000000018233000000000018233000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-__music__
-00 01424344
-=======
 00010000000000000037050370503705035050000000000038150000003815000000000002e05000000000002b350273502635026350266502665026650266502665031650000000000000000000000000000000
->>>>>>> 86ed211 (explosions)
