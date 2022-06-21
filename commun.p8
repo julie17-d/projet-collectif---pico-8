@@ -6,10 +6,19 @@ function _init()
 	bullets={}
 	pigeons={}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	spawn_pigeons()
 	sfx(1)
 =======
 >>>>>>> 6c02fc9ca1e9ce6adda611189a0c9cb852eff382
+=======
+	pigeons_killed=0
+end
+
+if pigeon.life==0 then
+del(pigeons,pigeon)
+pigeons_killed+=1
+>>>>>>> be315d5 (nouv)
 end
 
 function _update60()
@@ -118,6 +127,21 @@ function collision(a,b)
 		end
 	end
 end
+-->8
+
+
+--function draw_gameover()
+--cls(2)
+--rectfill(31,53,105,79,0)
+--rectfill(28,50,102,76,1)
+--end
+-->8
+--explosions
+--draw_explosions()
+--pigeons_killed
+--print(score,2,2,10)
+--end
+
 __gfx__
 0000000000555000eeeeeeee0000000000555000eedddeeeeeeeeeee666666666666666699999999999911111999999999911199eeeeeeee9993999966666666
 00000000005f7000eedddeee05550000005f7000eedd8eeeeee66eee666666666666666699999111119911111999999999111199eeeeeeee993bb9996663b666
