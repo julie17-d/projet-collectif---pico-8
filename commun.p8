@@ -75,7 +75,7 @@ end
 
 function spawn_pigeons()
 	add(pigeons,{
-		x=60,
+		x=130,
 		y=10
 	})
 end
