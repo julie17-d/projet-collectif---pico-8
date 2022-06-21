@@ -12,11 +12,10 @@ function _update60()
 	if (btn(➡️))	p.x+=p.speed
 	if (btn(⬅️)) p.x-=p.speed
 	if (btnp(❎)) shoot()
-	if (btn(🅾️)) jump() 
 	
 	update_bullets()
 	if #pigeons==0 then
-		spawn_pigeons()
+		spawn_pigeons(3)
 	end
 	update_pigeons()
 	update_explosions()
@@ -33,7 +32,7 @@ function _draw()
 	
 	--pigeons
 	for e in all(pigeons) do
-		spr(5,e.x,e.y)
+		spr(23,e.x,e.y)
 	end
 	
 	--explosions
@@ -80,14 +79,17 @@ function camera_follow()
 	cam_x=mid(0,cam_x,896)
 	camera(cam_x)
 end
+
 -->8
 --pigeons
 
-function spawn_pigeons()
+function spawn_pigeons(amount)
+ for i=1, amount do
 	add(pigeons,{
 		x=p.x+68,
 		y=10
 	})
+ end 
 end
 
 function update_pigeons()
@@ -207,12 +209,12 @@ __gfx__
 0070070000111000dd666dd00cfc0000011f10000000a000eeeeeeeeaaaddaaa6666666611111111111111111911199111111111eeeeeeee99bbb9993bbbbbbb
 000000000010100000d6d00001f111000000100000000000eeeeeeeedddddddd6666666611111111111111111111111111111111eeeeeeee9994999966644666
 000000000010100000a0a000010000000000100000000000eeeeeeeedddddddd6666666611111111111111111111111111111111eeeeeeee9994999966644666
-eeeeeeeeeeeeeeee00000000000b0000eeeeeeee999999994a44411100000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee44a49444eeeeeeee4444eeee44a44a4e
-eeeeeeeeeeeeeeee0000000000000000ee99aeee999999991114411100000000eeeeeeeeeeeeeddddddeeeeeeeeeeeee444494a4eeeeeeee4444eeee4444444e
-eeeeeeeeeeeeeeee00000000000b0000e99aaaee999999991114a11100000000eeeeeeeeeeeeddddddddeeeeeeeeeeeea4441111e9e9e9e9a444eeee44442222
-eeeeeeeeeeeeeeee000a0000000000009aaaaaae999999991114411100000000eeeeeeeeeeeddddddddddeeeeeeeeeee114411119e9e9e9e444494444a422222
-eeeeeeeeeeeeeeee00000000000b00009aaaaaae999999991111111100000000eeeeeeeeeedd888dd888ddeeeeeeeeee11141111999999994444944a44427227
-eeeeeeee5eeeeeee00000000000b00009aaaaaae999999991111111100000000eeeeeeeeeedd80866808ddeeeeeeeeee11111111999999994a44944444222222
+eeeeeeeeeeeeeeee00000000000b0000eeeeeeee999999994a444111000ddd00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee44a49444eeeeeeee4444eeee44a44a4e
+eeeeeeeeeeeeeeee0000000000000000ee99aeee999999991114411100086d00eeeeeeeeeeeeeddddddeeeeeeeeeeeee444494a4eeeeeeee4444eeee4444444e
+eeeeeeeeeeeeeeee00000000000b0000e99aaaee999999991114a11100966d00eeeeeeeeeeeeddddddddeeeeeeeeeeeea4441111e9e9e9e9a444eeee44442222
+eeeeeeeeeeeeeeee000a0000000000009aaaaaae9999999911144111000666d0eeeeeeeeeeeddddddddddeeeeeeeeeee114411119e9e9e9e444494444a422222
+eeeeeeeeeeeeeeee00000000000b00009aaaaaae9999999911111111000dddd0eeeeeeeeeedd888dd888ddeeeeeeeeee11141111999999994444944a44427227
+eeeeeeee5eeeeeee00000000000b00009aaaaaae9999999911111111000a0000eeeeeeeeeedd80866808ddeeeeeeeeee11111111999999994a44944444222222
 eeeeeeee5eeeeeee0000000000000000e99aaaee999999991111111100000000eeeeeeeeeedd80866808ddeeeeeeeeee1111111199999999444494a4a4272272
 eeeeeee5a5eeeeee00000000000b0000ee999eee999999991111111100000000eeeeeeeeeeddd699996dddeeeeeeeeee11111111999999994444944444222222
 eeeeee5aaa5eeeee088008800880088000000000000000000000000000000000eeeeeeeeeeddd699996dddeeeeeeeeee11111122eeeeeeee22224a4900000000
