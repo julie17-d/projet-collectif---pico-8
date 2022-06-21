@@ -76,7 +76,7 @@ end
 --camera
 
 function camera_follow()
-	cam_x=p.x-20
+	cam_x=p.x-60
 	cam_x=mid(0,cam_x,896)
 	camera(cam_x)
 end
@@ -85,7 +85,7 @@ end
 
 function spawn_pigeons()
 	add(pigeons,{
-		x=130,
+		x=p.x+68,
 		y=10
 	})
 end
