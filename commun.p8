@@ -18,7 +18,13 @@ function _update60()
 	if (btn(➡️))	p.x+=p.speed
 	if (btn(⬅️)) p.x-=p.speed
 	if (btnp(❎)) shoot()
-	if (btn(🅾️)) jump() 
+	if (btn(🅾️)) jump()
+	if p.x < 0 then
+		p.x = 0
+	end
+	if p.x > 1000 then
+		p.x = 1000
+	end
 	
 	update_bullets()
 	
