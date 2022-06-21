@@ -5,7 +5,6 @@ function _init()
 	p={x=60,y=60,speed=1}
 	bullets={}
 	pigeons={}
-	spawn_pigeons()
 end
 
 function _update60()
@@ -77,16 +76,35 @@ end
 function spawn_pigeons()
 	add(pigeons,{
 		x=60,
-		y=10,
-		life=1
+		y=10
 	})
 end
 
 function update_pigeons()
 	for pigeon in all(pigeons) do
-		pigeon.x -= 0.3
-		if pigeon.x < 130 then
+		pigeon.x -= 0.5
+		if pigeon.x < 0 then
 			del(pigeons,pigeon)
+		end
+		--collision
+		for b in all(bullets) do
+			if collision(pigeon,b) then
+				del(bullets,b)
+				del(pigeons,pigeon)
+			end
+		end
+	end
+end
+-->8
+--collision
+					
+function collision(a,b)
+	if a.y+4 < b.y then
+		if a.x > b.x+4
+		or a.x+4 < b.x then
+			return false
+		else
+			return true
 		end
 	end
 end
