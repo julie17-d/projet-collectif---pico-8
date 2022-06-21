@@ -6,12 +6,19 @@ function _init()
 	bullets={}
 	pigeons={}
 	explosions={}
+	sfx(1)
 end
 
 function _update60()
 	if (btn(➡️))	p.x+=p.speed
 	if (btn(⬅️)) p.x-=p.speed
 	if (btnp(❎)) shoot()
+ 	if p.x < 0 then
+ 		p.x = 0
+ 	end
+ 	if p.x > 1000 then
+ 		p.x = 1000
+ 	end
 	
 	update_bullets()
 	if #pigeons==0 then
@@ -63,6 +70,7 @@ function shoot()
 		speed=4
 	}
 	add(bullets, new_bullet)
+	sfx(0)
 end
 
 function update_bullets()
@@ -95,7 +103,7 @@ end
 function update_pigeons()
 	for pigeon in all(pigeons) do
 		pigeon.x -= 0.5
-		if pigeon.x < 0 then
+		if pigeon.x < p.x-68 then
 			del(pigeons,pigeon)
 		end
 	
