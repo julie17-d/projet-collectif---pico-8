@@ -42,6 +42,10 @@ function _draw()
 		spr(23,e.x,e.y)
 	end
 	
+		for e in all(pigeons) do
+		spr(2,e.x,e.y)
+	end
+	
 	--explosions
 	draw_explosions() 
 	--shoot
@@ -94,7 +98,7 @@ end
 function spawn_pigeons(amount)
  for i=1, amount do
 	add(pigeons,{
-		x=p.x+68,
+		x=rnd(p.x+68),
 		y=10
 	})
  end 
