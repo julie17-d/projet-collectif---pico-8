@@ -6,6 +6,7 @@ function _init()
 	bullets={}
 	pigeons={}
 	explosions={}
+	score=0
 	sfx(1)
 end
 
@@ -22,7 +23,7 @@ function _update60()
 	
 	update_bullets()
 	if #pigeons==0 then
-		spawn_pigeons(3)
+		spawn_pigeons(rnd(7))
 	end
 	update_pigeons()
 	update_explosions()
@@ -40,6 +41,7 @@ function _draw()
 	--pigeons
 	for e in all(pigeons) do
 		spr(23,e.x,e.y)
+		spr(2,e.x+15,e.y-10)
 	end
 	
 	--explosions
@@ -48,14 +50,15 @@ function _draw()
 	for b in all(bullets) do
 		spr(18,b.x,b.y)
 	end
+	--score
+	print("score "..score,p.x-50,2,7)
+	--vie
+	spr(34,p.x+40,1)
+ spr(34,p.x+50,1)
+ spr(34,p.x+60,1)
 end
 
---if personage==0 then 
---print ("score:"..score,40,1,12) 
-
-spr(34,1,1)
-spr(34,9,1)
-spr(34,17,1) 
+ 
 
 
 
@@ -96,17 +99,20 @@ function spawn_pigeons(amount)
  for i=1, amount do
 	add(pigeons,{
 		x=p.x+68,
-		y=10
+		y=10,
+		life=2
 	})
  end 
 end
 
 function update_pigeons()
 	for pigeon in all(pigeons) do
-		pigeon.x -= 0.5
+		pigeon.x-= 0.5
 		if pigeon.x < p.x-68 then
 			del(pigeons,pigeon)
 		end
+	end
+end
 	
 		
 		--collision
@@ -114,11 +120,14 @@ function update_pigeons()
 			if collision(pigeon,b) then
 		 	create_explosions(pigeon.x,pigeon.y)
 				del(bullets,b)
-				del(pigeons,pigeon)
-			end
-		end
+				pigeons.life-=1 
+				if pigeon.life==0 then
+			 	del(pigeons,pigeon)
+			  score+=100
+		 	end
+	 	end
 	end
-end
+
 -->8
 --collision
 					
@@ -189,13 +198,13 @@ eeeeeee5a5eeeeee008888000080080000000000000000000000000000000000eeeddd666666d666
 eeeeeee5a5eeeeee000880000008800000000000000000000000000000000000eeeeed66ddddd666666ddddd66deeeee11111111722244491111111100000000
 eeeeeee5a5eeeeee000000000000000000000000000000000000000000000000eeeeeedd6666d666666d6666ddeeeeee111111112222a4491111111100000000
 eeeeeee5a5eeeeee000000000000000000000000eeeeee6777eeeeee00000000eeeeeeeedd66d666666d66ddeeeeeeee0000000000000000cccccccc00000000
-eeeeeee5a5eeeeee000000000000000000000000eeeee667777eeeee00000000eeeeeeeeeeddd666666dddeeeeeeeeee0000000000000000cccccccc00000000
-e9e9e9e5a5e9e9e9000000000000000000000000eeee66777777eeee00000000eeeeeeeeeeeeddddddddeeeeeeeeeeee0000000000000000cccccccc00000000
+eeeeeee5a5eeeeee000070000000000000000000eeeee667777eeeee00000000eeeeeeeeeeddd666666dddeeeeeeeeee0000000000000000cccccccc00000000
+e9e9e9e5a5e9e9e90b0070b00000000000000000eeee66777777eeee00000000eeeeeeeeeeeeddddddddeeeeeeeeeeee0000000000000000cccccccc00000000
 9e9e9e5aaa599e9e000000000000000000000000ee666777777777ee00000000eeeeeeeeeeeedddeedddeeeeeeeeeeee0000000000000000cccccccc00000000
-9999995aaa599999000000000000000000000000e66777777777777e00000000eeeeeeeeeeeedddeedddeeeeeeeeeeee0000000000000000cccccccc00000000
-999995aaaaa59999000000000000000000000000666667777777777700000000eeeeeeeeeeeeaaaeeaaaeeeeeeeeeeee0000000000000000cccccccc00000000
-99995aaaaaaa5999000000000000000000000000eeeeeeeeeeeeeeee00000000eeeeeeeeeeeeaaaeeaaaeeeeeeeeeeee0000000000000000cccccccc00000000
-99995aa555aa5999000000000000000000000000eeeeeeeeeeeeeeee00000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000cccccccc00000000
+9999995aaa599999000b00000000000000000000e66777777777777e00000000eeeeeeeeeeeedddeedddeeeeeeeeeeee0000000000000000cccccccc00000000
+999995aaaaa59999000000b00000000000000000666667777777777700000000eeeeeeeeeeeeaaaeeaaaeeeeeeeeeeee0000000000000000cccccccc00000000
+99995aaaaaaa59990b0070000000000000000000eeeeeeeeeeeeeeee00000000eeeeeeeeeeeeaaaeeaaaeeeeeeeeeeee0000000000000000cccccccc00000000
+99995aa555aa5999000070000000000000000000eeeeeeeeeeeeeeee00000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee0000000000000000cccccccc00000000
 99995aa555aa599999999999eeeeeeee00000000eeeeeeeeeeeeeeee00000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000
 9995aaa555aaa59999999999eeeeeeee00000000eeeeeeeeeeeeeeee00000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000
 9995aaaaaaaaa59999999999eeeeeeee00000000eeeeeeeeeeeeeeee00000000eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee00000000000000000000000000000000
