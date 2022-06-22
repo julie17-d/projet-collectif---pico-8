@@ -95,7 +95,7 @@ function spawn_pigeons(amount)
  gap=(128-8*amount)/(amount+1)
  for i=1, amount do
 	add(pigeons,{
-		x=rnd(p.x+68),
+		x=p.x+68,
 		y=10
 	})
  end 
