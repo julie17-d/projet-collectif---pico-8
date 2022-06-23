@@ -392,8 +392,7 @@ end
 function create_fientes(x,y)
 add(fientes,{
     x = x,
-    y = y,
-    timer = 0 
+    y = y
 })
 end
 
