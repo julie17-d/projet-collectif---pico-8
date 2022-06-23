@@ -13,28 +13,14 @@ end
 
 function _update60()
 
-<<<<<<< HEAD
-	if (state=="intro") then update_intro()
-		elseif(state=="game") then update_game()
-		elseif (state=="gameover") then update_gameover()
-=======
  if (state=="intro") then update_intro()
  elseif (state=="game") then update_game()
  else  update_gameover()
  
->>>>>>> dev
 	end
 end
 
 function _draw()
-<<<<<<< HEAD
-
-	--game state
-	if (state=="intro") then draw_intro()
-		elseif (state=="game") then draw_game()
-		elseif (state=="gameover") then draw_gameover()
-	end
-=======
 	
 	
 	--game state
@@ -42,7 +28,6 @@ function _draw()
 	elseif (state=="game") then draw_game()
 	else  draw_gameover()
  end
->>>>>>> dev
 end
 
 
