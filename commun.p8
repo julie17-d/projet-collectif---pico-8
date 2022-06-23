@@ -9,6 +9,8 @@ function _init()
 	waves={}
 	explosions={}
 	score=0
+	fientes={}
+	text_timer=0
 	state="intro"
 	cam_x=p.x-60
 	mehmet_sprite=1
@@ -85,6 +87,19 @@ end
 function update_pigeons()
 	for pigeon in all(pigeons) do
 		pigeon.x-= 0.5
+
+		if pigeon.x > p.x then
+			new_fientes = {
+        	x=pigeon.x,
+        	y=pigeon.y,
+        	speed=3
+    		}
+    		add(fientes, new_fientes)
+		end
+
+
+	
+    
 		if pigeon.x < p.x-68 then
 			del(pigeons,pigeon)
 		end
@@ -99,21 +114,22 @@ function update_pigeons()
 				if pigeon.life==0 then
 			 	del(pigeons,pigeon)
 			  score+=100
+			  	end
 		 	end
-	  end
-	 end
- end
+	  	end
+	end
+
 end
 
 
 -->8
 --collision
 					
-function collision(pigeon,b)
-	if pigeon.y > b.y-4 
-	and pigeon.y < b.y + 4 then 
-		if pigeon.x > b.x-4
-		and pigeon.x < b.x+4 then 
+function collision(cible,missiles)
+	if cible.y > missiles.y-4 
+	and cible.y < missiles.y + 4 then 
+		if cible.x > missiles.x-4
+		and cible.x < missiles.x+4 then 
 			return true
 		else
 			return false
@@ -122,6 +138,7 @@ function collision(pigeon,b)
   return false
  end
 end
+
 
 
 
@@ -165,7 +182,7 @@ function draw_gameover()
  	col=10
  end
  print("score:"..score,36,56,col)
- print("😐(m) pour reesayer",38,66,10)
+ print("😐(m) pour reessayer",38,66,10)
 end
 
 -->8
@@ -216,6 +233,10 @@ function draw_game()
 	end
 	if ( affichage!=nil) then print(affichage,10,10,9)
  end
+	for f in all (fientes) do
+		draw_fientes()
+	end
+
 	--score
 	print("score "..score,cam_x+7,2,7)
 	--vie
@@ -335,6 +356,52 @@ function flying()
   d2=8
  end
 end
+
+
+
+	update_fientes()
+	
+	camera_follow()
+end
+
+-->8
+--fientes
+
+function update_fientes()
+    for fiente in all(fientes) do 
+        fiente.y += new_fientes.speed
+        if fiente.y > p.y+60 then 
+            del(fientes,fiente)
+        end
+		if collision(p, fiente) then
+			p.life -= 1
+		end	
+		if p.life ==0 then
+			state= "game over"
+		
+		end
+    end
+end
+
+function draw_fientes()
+
+    spr(19,new_fientes.x,new_fientes.y)
+
+end
+
+function create_fientes(x,y)
+add(fientes,{
+    x = x,
+    y = y,
+    timer = 0 
+})
+end
+
+
+
+
+
+
 
 
 __gfx__
