@@ -13,60 +13,19 @@ end
 
 function _update60()
 
-if (state=="intro") update_intro()
-if (state=="game") update_game()
-if (state=="gameover") update_gameover()
-
-	if (btn(➡️))	p.x+=p.speed
-	if (btn(⬅️)) p.x-=p.speed
-	if (btnp(❎)) shoot()
-	if (btnp(🅾️)) then scene="intro"
- 	if p.x < 0 then
- 		p.x = 0
- 	end
- 	if p.x > 1000 then
- 		p.x = 1000
- 	end
-	
-	update_bullets()
-	if #pigeons==0 then
-		spawn_pigeons(rnd(7))
-	end
-	update_pigeons()
-	update_explosions()
-	
-	camera_follow()
+	if (state=="intro") then update_intro()
+		elseif(state=="game") then update_game()
+		elseif (state=="gameover") then update_gameover()
 	end
 end
 
 function _draw()
-	cls()
-	map(0,0,0,0)
-	
+
 	--game state
-	if (state=="intro") draw_intro()
-	if (state=="game") draw_game()
-	if (state=="gameover") draw_gameover()
-	--player
-	spr(1,p.x,p.y)
-	
-	--pigeons
-	for e in all(pigeons) do
-		spr(23,e.x,e.y)
+	if (state=="intro") then draw_intro()
+		elseif (state=="game") then draw_game()
+		elseif (state=="gameover") then draw_gameover()
 	end
-	
-	--explosions
-	draw_explosions() 
-	--shoot
-	for b in all(bullets) do
-		spr(18,b.x,b.y)
-	end
-	--score
-	print("score "..score,cam_x+7,2,7)
-	--vie
-	spr(34,cam_x+95,1)
- spr(34,cam_x+105,1)
- spr(34,cam_x+115,1)
 end
 
  
@@ -177,34 +136,11 @@ function draw_explosions()
 	end
 end
 	
-
--->8
---menu intial
-
-function _update()
- if state=="intro"then
-  update_intro()
- elseif state=="game" then
-  update_game()
- else 
-  update_gameover()
- end
-end
-
-function _draw()
- if state=="intro"then
-  draw_intro()
- elseif state=="game" then
-  draw_game()
- else 
-  draw_gameover()
- end
-end
 -->8
 --game over 
 function update_gameover()
  text_timer+=1
- if (btn(😐))_init()
+ if (btn(😐)) _init()
 end
 
 function draw_gameover()
@@ -224,25 +160,63 @@ end
 function draw_intro()
  cls()
  print("ca vole pas haut",30,43)
- print("press 🅾️ to start",30,63)
+ print("press ⬆️ to start",30,63)
 end
 
 function draw_game()
- _draw()
+	cls()
+	map(0,0,0,0)
+	--player
+	spr(1,p.x,p.y)
+	
+	--pigeons
+	for e in all(pigeons) do
+		spr(23,e.x,e.y)
+	end
+	
+	--explosions
+	draw_explosions() 
+	--shoot
+	for b in all(bullets) do
+		spr(18,b.x,b.y)
+	end
+	--score
+	print("score "..score,cam_x+7,2,7)
+	--vie
+	spr(34,cam_x+95,1)
+ 	spr(34,cam_x+105,1)
+ 	spr(34,cam_x+115,1)
 end
 
 -->8
 --updates
 function update_intro()
- if (btnp(🅾️)) then
- state="game"
+ if btnp(⬆️) then
+	 state="game"
  end
 end
 
 function update_game()
 
- _update60()
-
+	if (btn(➡️))	p.x+=p.speed
+	if (btn(⬅️)) p.x-=p.speed
+	if (btnp(❎)) shoot()
+	--if (btnp(🅾️)) scene="intro"
+ 	if p.x < 0 then
+ 		p.x = 0
+ 	end
+ 	if p.x > 1000 then
+ 		p.x = 1000
+ 	end
+	
+	update_bullets()
+	if #pigeons==0 then
+		spawn_pigeons(rnd(7))
+	end
+	update_pigeons()
+	update_explosions()
+	
+	camera_follow()
 end
 __gfx__
 000000000055500000000000000000000055500000ddd000eeeeeeee666666666666666699999999999911111999999999911199eeeeeeee9993999966666666
