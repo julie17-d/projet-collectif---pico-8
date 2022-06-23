@@ -6,14 +6,11 @@ function _init()
 	bullets={}
 	pigeons={}
 	explosions={}
-<<<<<<< HEAD
 	score=0
 	state="intro"
 	cam_x=p.x-60
 	sfx(1)
-=======
 	music(0)
->>>>>>> d1d73de (DJ)
 end
 
 function _update60()
