@@ -233,8 +233,11 @@ function draw_game()
 	end
 	if (affichage!=nil) then print(affichage,10,10,9)
  end
- 	while 
-	end
+ 	--if pigeons.x <= p.x then
+		for f in all (fientes) do
+			draw_fientes()
+		end
+	--end
 
 	--score
 	print("score "..score,cam_x+7,2,7)
