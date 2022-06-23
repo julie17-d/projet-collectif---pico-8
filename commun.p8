@@ -7,6 +7,7 @@ function _init()
 	pigeons={}
 	explosions={}
 	score=0
+	fientes={}
 	state="intro"
 	cam_x=p.x-60
 	sfx(1)
@@ -79,6 +80,18 @@ end
 function update_pigeons()
 	for pigeon in all(pigeons) do
 		pigeon.x-= 0.5
+
+		if pigeon.x > p.x then
+			new_fientes = {
+        	x=pigeon.x,
+        	y=pigeon.y,
+        	speed=3
+    		}
+    		add(fientes, new_fientes)
+
+		end
+	
+    
 		if pigeon.x < p.x-68 then
 			del(pigeons,pigeon)
 		end
@@ -93,10 +106,11 @@ function update_pigeons()
 				if pigeon.life==0 then
 			 	del(pigeons,pigeon)
 			  score+=100
+			  	end
 		 	end
-	  end
-	 end
- end
+	  	end
+	end
+
 end
 
 
@@ -189,6 +203,10 @@ function draw_game()
 	end
 	if ( affichage!=nil) then print(affichage,10,10,9)
  end
+	for f in all (fientes) do
+		draw_fientes()
+	end
+
 	--score
 	print("score "..score,cam_x+7,2,7)
 	--vie
@@ -225,9 +243,54 @@ function update_game()
 	end
 	update_pigeons()
 	update_explosions()
+
+	update_fientes()
 	
 	camera_follow()
 end
+
+-->8
+--fientes
+--function missiles()  
+   -- new_fientes = {
+       -- x=pigeon.x,
+        --y=pigeon.y,
+        --speed=3
+   -- }
+    --add(fientes, new_fientes)
+
+    --end
+
+function update_fientes()
+    for fiente in all(fientes) do 
+        fiente.y += new_fientes.speed
+        if fiente.y > p.y+60 then 
+            del(fientes,fiente)
+        end
+    end
+end
+
+function draw_fientes()
+
+    spr(19,new_fientes.x,new_fientes.y)
+
+end
+
+function create_fientes(x,y)
+add(fientes,{
+    x = x,
+    y = y,
+    timer = 0 
+})
+end
+
+
+
+
+
+
+
+
 __gfx__
 000000000055500000000000000000000055500000ddd000eeeeeeee666666666666666699999999999911111999999999911199eeeeeeee9993999966666666
 00000000005f700000ddd00005550000005f700000dd8000eee66eee666666666666666699999111119911111999999999111199eeeeeeee993bb9996663b666
