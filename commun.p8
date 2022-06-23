@@ -135,34 +135,11 @@ function draw_explosions()
 	end
 end
 	
-
--->8
---menu intial
-
-function _update()
- if state=="intro"then
-  update_intro()
- elseif state=="game" then
-  update_game()
- else 
-  update_gameover()
- end
-end
-
-function _draw()
- if state=="intro"then
-  draw_intro()
- elseif state=="game" then
-  draw_game()
- else 
-  draw_gameover()
- end
-end
 -->8
 --game over 
 function update_gameover()
  text_timer+=1
- if (btn(😐))_init()
+ if (btn(😐)) _init()
 end
 
 function draw_gameover()
@@ -240,7 +217,6 @@ function update_game()
 	update_explosions()
 	
 	camera_follow()
-
 end
 __gfx__
 000000000055500000000000000000000055500000ddd000eeeeeeee666666666666666699999999999911111999999999911199eeeeeeee9993999966666666
