@@ -231,10 +231,9 @@ function draw_game()
 	for b in all(bullets) do
 		spr(18,b.x,b.y)
 	end
-	if ( affichage!=nil) then print(affichage,10,10,9)
+	if (affichage!=nil) then print(affichage,10,10,9)
  end
-	for f in all (fientes) do
-		draw_fientes()
+ 	while 
 	end
 
 	--score
@@ -376,10 +375,9 @@ function update_fientes()
 		if collision(p, fiente) then
 			p.life -= 1
 		end	
-		if p.life ==0 then
-			state= "game over"
-		
-		end
+		--if p.life==0 then
+		--	state="game over"
+		--end
     end
 end
 
@@ -389,12 +387,6 @@ function draw_fientes()
 
 end
 
-function create_fientes(x,y)
-add(fientes,{
-    x = x,
-    y = y
-})
-end
 
 
 
