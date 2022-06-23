@@ -51,11 +51,11 @@ function _draw()
 		spr(18,b.x,b.y)
 	end
 	--score
-	print("score "..score,p.x-50,2,7)
+	print("score "..score,cam_x+7,2,7)
 	--vie
-	spr(34,p.x+40,1)
- spr(34,p.x+50,1)
- spr(34,p.x+60,1)
+	spr(34,cam_x+95,1)
+ spr(34,cam_x+105,1)
+ spr(34,cam_x+115,1)
 end
 
  
