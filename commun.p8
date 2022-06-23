@@ -87,7 +87,6 @@ function update_pigeons()
 		end
 	
 	
-		
 		--collision
 		for b in all(bullets) do
 			if collision(pigeon,b) then
