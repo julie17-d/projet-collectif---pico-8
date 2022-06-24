@@ -17,6 +17,7 @@ function _init()
 	d= 4
 	mama_sprite=192
 	d2= 36
+	tir = 0
 	sfx(1)
 	music(0)
 end
@@ -88,13 +89,15 @@ function update_pigeons()
 	for pigeon in all(pigeons) do
 		pigeon.x-= 0.5
 
-		if pigeon.x > p.x then
+		if pigeon.x < p.x+15
+		and pigeon.x > p.x -8 then
 			new_fientes = {
         	x=pigeon.x,
         	y=pigeon.y,
-        	speed=3
-    		}
-    		add(fientes, new_fientes)
+        	speed=3,
+			}
+   			add(fientes, new_fientes)
+				
 		end
 
 
@@ -112,8 +115,8 @@ function update_pigeons()
 		 	pigeon.y)
 				pigeon.life-=1 
 				if pigeon.life==0 then
-			 	del(pigeons,pigeon)
-			  score+=100
+			 		del(pigeons,pigeon)
+			 		score+=100
 			  	end
 		 	end
 	  	end
@@ -129,11 +132,11 @@ function collision(cible,missiles)
 	if cible.y > missiles.y-4 
 	and cible.y < missiles.y + 4 then 
 		if cible.x > missiles.x-4
-		and cible.x < missiles.x+4 then 
+		and cible.x < missiles.x+4 then
 			return true
 		else
 			return false
- 	end
+		end
  else 
   return false
  end
@@ -212,7 +215,6 @@ function draw_game()
 		palt(7,true)
  	palt(0,false)
 	 spr(mama_sprite,900,10,4,4)
-  print(mama_sprite)
   palt(0,true)
  	palt(7,false)
 	
@@ -231,20 +233,20 @@ function draw_game()
 	for b in all(bullets) do
 		spr(18,b.x,b.y)
 	end
-	if (affichage!=nil) then print(affichage,10,10,9)
- end
- 	--if pigeons.x <= p.x then
-		for f in all (fientes) do
-			draw_fientes()
-		end
-	--end
+	-- fientes
+	for f in all(fientes) do
+		spr(19,f.x,f.y)
+	end
+	
 
 	--score
 	print("score "..score,cam_x+7,2,7)
 	--vie
 	spr(34,cam_x+95,1)
- 	spr(34,cam_x+105,1)
- 	spr(34,cam_x+115,1)
+	spr(34,cam_x+105,1)
+	spr(34,cam_x+115,1)
+
+	print(p.life, 25, 20, 7)
 end
 
 
@@ -290,6 +292,8 @@ function update_game()
 	 spawn_waves(rnd(7))
 	end
 	update_waves()
+
+	update_fientes()
 	
 	camera_follow()
 end
@@ -357,11 +361,6 @@ function flying()
   end
   d2=8
  end
-
-
-	update_fientes()
-	
-	camera_follow()
 end
 
 -->8
@@ -372,20 +371,16 @@ function update_fientes()
         fiente.y += new_fientes.speed
         if fiente.y > p.y+60 then 
             del(fientes,fiente)
-        end
+		end
 		if collision(p, fiente) then
-			p.life -= 1
-		end	
+			del(fientes,fiente)
+			p.life -=1
+		end
+
+	end	
 		--if p.life==0 then
 		--	state="game over"
 		--end
-    end
-end
-
-function draw_fientes()
-
-    spr(19,new_fientes.x,new_fientes.y)
-
 end
 
 
