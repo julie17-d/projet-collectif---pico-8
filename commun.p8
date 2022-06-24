@@ -2,7 +2,7 @@ pico-8 cartridge // http://www.pico-8.com
 version 29
 __lua__
 function _init()
-	p={x=60,y=60,speed=1}
+	p={x=60,y=60,speed=1,life=3}
  clouds={}
 	bullets={}
 	pigeons={}
@@ -357,8 +357,6 @@ function flying()
   end
   d2=8
  end
-end
-
 
 
 	update_fientes()
