@@ -4,17 +4,6 @@ __lua__
 function _init()
  
  --player
-	p={x=60,y=60,speed=1, life=3}
-	
-	--timer
-	
-	ctime = {
-	
-	s =0,
-	
-	ms =0
-	
-	}
 	
 	p={x=60,y=60,speed=1, life=3, timer=0}
 	first_sprt = fget(1,0)
@@ -145,12 +134,12 @@ function update_pigeons()
 	for pigeon in all(pigeons) do
 		pigeon.x-= 0.5
 
-		if pigeon.x <  rnd(p.x+5)
-		and pigeon.x > rnd(p.x -5) then
+		if pigeon.x <  (p.x+1)
+		and pigeon.x > (p.x-1) then
 			new_fientes = {
         	x=pigeon.x,
         	y=pigeon.y,
-        	speed=0.5
+        	speed=rnd(3)
     		}
     		add(fientes, new_fientes)
 		end
@@ -372,7 +361,7 @@ function update_game()
 	--pigeon
 	
 	if #pigeons==0 then
-		spawn_pigeons (rnd(15))
+		spawn_pigeons (rnd(20))
 	end
 	update_pigeons()
 	
