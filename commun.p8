@@ -5,7 +5,7 @@ function _init()
  
  --player
 	
-	p={x=75,y=75,speed=0.75, life=3, timer=0}
+	p={x=75,y=75,speed=1, life=3, timer=0}
 	first_sprt = fget(1,0)
 	
 	--nuage
@@ -30,6 +30,7 @@ function _init()
 	--explosions
 	explosions={}
 	explosions2={}
+	explosions3={}
 
 	--sang
 	blood={}
@@ -66,6 +67,7 @@ function _init()
 	mehmet_sprite=1
 	d= 4
 	mama_sprite=192
+	mama={x=0,y=20,speed=1, life=10, timer=0}
 	d2= 36
 	
 	--sfx
@@ -177,6 +179,7 @@ function update_pigeons()
 			if collision(pigeon,b) then
 		 	create_explosions(pigeon.x,
 		 	pigeon.y)
+
 --		 	explode(pigeon.x,pigeon.y)
 				pigeon.life-=1 
 				if pigeon.life==0 then
@@ -259,6 +262,34 @@ function draw_explosions2()
 		circ(e2.x,e2.y,e2.timer/3,8+e2.timer%3)
 	end
 end
+
+--explosion 3
+
+--explosions3
+function create_explosions3(_x,_y)
+	add(explosions3,{x=_x, y=_y , timer=0})
+end
+
+function update_explosions3()
+	for e3 in all(explosions3) do
+		e3.timer +=1
+		if e3.timer == 13 then
+			del(explosions3,e3)
+		end
+	end
+end
+
+function draw_explosions3()
+
+
+
+	for e3 in all(explosions3) do
+		circ(e3.x,e3.y,e3.timer/3,8+e3.timer%3)
+	end
+end
+	
+
+
 	
 
 
@@ -292,7 +323,7 @@ function draw_game()
 		
 		palt(7,true)
  	palt(0,false)
-	 spr(mama_sprite,900,40,4,4)
+	 spr(mama_sprite,mama.x,mama.y,4,4)
   palt(0,true)
  	palt(7,false)
 	
@@ -328,6 +359,7 @@ function draw_game()
 	
 	draw_explosions() 
 	draw_explosions2()
+	draw_explosions3()
 	
 	--shoot
 	
@@ -430,10 +462,12 @@ function update_game()
 	--mama
 	
 		flying()
+		update_mama()
 	
 	--explosions
 	update_explosions()
 	update_explosions2()
+	update_explosions3()
 	
 	--nuage
 	
@@ -593,40 +627,34 @@ function draw_flaques()
 end
 -->8
 --mama
---function move_mama()
--- for i=1, amount do
-	--	x=900,
-	--	y=ceil(rnd(20)),
-	--	life=10
---	})
- --end 
---end
 
---function update_mama()
---	for mama do
-	--	mama.x-= rnd(1)
-		--end
+function update_mama()
 	
+	if mama.x<900 then
+		mama.x+=rnd(mama.speed)
+	 elseif mama.x== 900 then
+	 mama.x=900
+	end
 	
-		--collision
-		--for b in all(bullets) do
+--		collision
+	
+		for b in all(bullets) do
 		
-		--	if collision(mama,b) then
-		   --	create_explosions(mama.x,
-		   --	mama.y)
-			  --	mama.life-=1
-		--	end
+	 	if collision(mama,b) then
+		   	create_explosions3(mama.x,
+		   	mama.y)
+			 	mama.life-=1
+			 	if mama.life ==0 then 
+			   	del(mama)
+			   	score+=10000
+			   	state = "gameover"
+		  	end
+		 end
+	end
+end
 			
-			--	if mama.life-=1 then
-			   --	trail(mama.x,mama.y,trail_width,trail_colors,trail_amount) 
-			--	end
-				 
-				 -- if mama.life==0 then
-				  --   explode(mama.x,mama.y,explode_size,explode_colors,explode_amount)
-			    -- 	del(mama)
-			    ---  score+=10000
-			  --	end
---	end
+	
+
 
 
 -->8
@@ -698,7 +726,7 @@ end
 function update_cars()
 	for car in all(cars) do
 		car.x-= car.speed
-		if car.x < p.x-68 then
+		if car.x < p.x-98 then
 			del(cars,car)
 		end
 	end
@@ -720,7 +748,7 @@ end
 function update_cars2()
 	for car2 in all(cars2) do
 		car2.x-= car2.speed
-		if car2.x < p.x-68 then
+		if car2.x < p.x-98 then
 			del(cars2,car2)
 		end
 	end
