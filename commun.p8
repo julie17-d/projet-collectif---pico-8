@@ -5,8 +5,11 @@ function _init()
  
  --player
 	
-	p={x=60,y=60,speed=1, life=3, timer=0}
+	p={x=75,y=75,speed=1, life=3, timer=0}
 	first_sprt = fget(1,0)
+	
+	--flaque
+	flaques={}
 	
 	--nuage
  clouds={}
@@ -22,6 +25,7 @@ function _init()
 	
 	--voiture
 	cars={}
+	cars2={}
 	
 	--explosions
 	explosions={}
@@ -145,14 +149,22 @@ function update_pigeons()
         	speed=rnd(2)
     		}
     		add(fientes, new_fientes)
-		end
 
-
+	if new_fientes.y== 60 then
+		flaque = {
+    y=new_fientes.y,
+    timer = 0
+ } 
+    add(flaques,flaque)
+   end
+  end
+   
 	
     
 		if pigeon.x < p.x-68 then
 			del(pigeons,pigeon)
 		end
+
 	
 	
 		--collision
@@ -283,10 +295,20 @@ function draw_game()
 	end
 	
 	--voiture
+	palt(6,true)
+	palt(0,false)
 	
 	for car in all(cars) do 
 	 spr(39,car.x,car.y,4,2)
 	end
+	
+	for car2 in all(cars2) do 
+	spr(138,car2.x,car2.y,4,2)
+	end
+	
+	 palt(0,true)
+ 	palt(6,false)
+	
 	
 	--explosions
 	
@@ -395,6 +417,11 @@ function update_game()
 	end
 	update_cars()
 	
+	if #cars2==0 then
+	 spawn_cars2(rnd(7))
+	end
+	update_cars2()
+	
 	--vagues
 	
 	if #waves==0 then
@@ -408,9 +435,7 @@ function update_game()
 	--flaque
 	update_flaque()
 	create_flaque()
-	
-	if #flaque.time==2 then
-	del (flaque)
+
 	
 	--sang/blood
 	
@@ -421,7 +446,7 @@ function update_game()
 	camera_follow()
 	
 end
-end
+
 -->8
 --nuage 
 function spawn_clouds(amount)
@@ -503,7 +528,7 @@ end
 function update_fientes()
     for fiente in all(fientes) do 
         fiente.y += new_fientes.speed
-        if fiente.y > p.y+10 then 
+        if fiente.y > p.y+60 then 
             del(fientes,fiente)
         end
 		if collision(p, fiente)
@@ -542,16 +567,11 @@ end
  
  function update_flaque()
  
-  if fiente.y == 60 then 
-  create_flaque()
-  end
+ 
 end 
  
 function create_flaque()
- add(flaque,{
-    y=new_fientes.y,
-    timer = 0
- })
+
 end
 
 
@@ -663,12 +683,12 @@ end
 
 --cars 
 function spawn_cars(amount)
- gap=(128-8*amount)/(amount+5)
+ gap=(128-8*amount)/(amount+1)
  for i=1, amount do
 	add(cars,{
-		x=rnd(p.x+168),
-		y=ceil(rnd(20)),
-		speed=0.1
+		x=rnd(900),
+		y=46,
+		speed=-0.1
 	})
  end 
 end
@@ -682,6 +702,27 @@ function update_cars()
 	end
 end
 
+--cars2
+
+function spawn_cars2(amount)
+ gap=(128-8*amount)/(amount+5)
+ for i=1, amount do
+	add(cars2,{
+		x=rnd(900),
+		y=50,
+		speed=0.1
+	})
+ end 
+end
+
+function update_cars2()
+	for car2 in all(cars2) do
+		car2.x-= car2.speed
+		if car2.x < p.x-68 then
+			del(cars2,car2)
+		end
+	end
+end
 
 __gfx__
 000000007700007777000077770000777700007777000077eeeeeeee666666666666666699999999999911111999999999911199eeeeeeee9993999966666666
