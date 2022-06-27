@@ -145,12 +145,12 @@ function update_pigeons()
 	for pigeon in all(pigeons) do
 		pigeon.x-= 0.5
 
-		if pigeon.x <  rnd(p.x+6)
-		and pigeon.x > rnd(p.x -6) then
+		if pigeon.x <  rnd(p.x+5)
+		and pigeon.x > rnd(p.x -5) then
 			new_fientes = {
         	x=pigeon.x,
         	y=pigeon.y,
-        	speed=rnd(3)
+        	speed=0.5
     		}
     		add(fientes, new_fientes)
 		end
@@ -372,7 +372,7 @@ function update_game()
 	--pigeon
 	
 	if #pigeons==0 then
-		spawn_pigeons(rnd(7))
+		spawn_pigeons (rnd(15))
 	end
 	update_pigeons()
 	
