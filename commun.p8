@@ -8,11 +8,11 @@ function _init()
 	p={x=75,y=75,speed=0.75, life=3, timer=0}
 	first_sprt = fget(1,0)
 	
-	--flaque
-	flaques={}
-	
 	--nuage
  clouds={}
+ 
+ --flaques
+ flaques={}
  
  --balles
 	bullets={}
@@ -153,16 +153,17 @@ function update_pigeons()
         	speed=rnd(2)
     		}
     		add(fientes, new_fientes)
-
-	if new_fientes.y== 60 then
-		flaque = {
-    y=new_fientes.y,
-    timer = 0
- } 
-    add(flaques,flaque)
-   end
+    		
+    		flaque = {
+    		x=p.x,
+    		y=p.y+8
+    		}
+    		add(flaques, flaque)
+    		if flaque.x < p.x-68
+  or flaque.x > p.x+68 then
+  	del(flaques,flaque)
   end
-   
+		end
 	
     
 		if pigeon.x < p.x-68 then
@@ -184,8 +185,8 @@ function update_pigeons()
 			  	end
 		 	end
 	  	end
-	end
 
+end
 end
 
 
@@ -346,9 +347,9 @@ function draw_game()
 	print("score "..score,cam_x+7,2,7)
 
  	--flaque
- 	function draw_flaque ()
- 	 spr(48,x,y,1)
- 	end
+	if first_sprt==true then
+	 draw_flaques()
+	end
 
 		--vie
 	if p.life == 3 then
@@ -396,10 +397,12 @@ function update_game()
  if btn(➡️)	then 
  	p.x+=p.speed
  	walking()
+ 	flaque.x-=p.speed
  end
 	if btn(⬅️) then
 	 p.x-=p.speed
 	 walking()
+	 flaque.x+=p.speed
 	end
 	if (btnp(❎)) shoot()
 	--if (btnp(🅾️)) then scene="intro"
@@ -459,11 +462,6 @@ function update_game()
 
 	--fientes
 	update_fientes()
-	
-	--flaque
-	update_flaque()
-	create_flaque()
-
 	
 	--sang/blood
 	
@@ -528,13 +526,6 @@ function walking()
   if mehmet_sprite > 4 then
   mehmet_sprite=1
   end
-  if first_sprt == true then
-			if mehmet_sprite == 2 then
-				mehmet_sprite = 27
-			elseif mehmet_sprite == 4 then
-				mehmet_sprite = 43
-			end
-		end
   d=8
  end
 end
@@ -561,14 +552,11 @@ function update_fientes()
         if fiente.y > p.y+60 then 
             del(fientes,fiente)
         end
-		 if collision(p, fiente) then
-		create_explosions2(p.x,
-		 	p.y)
-		 	del(fientes,fiente)
-		 end
 		if collision(p, fiente)
 		and first_sprt == false then
 			del(fientes, fiente)
+			create_explosions2(p.x,
+		 	p.y)
 			p.life -= 1
 			first_sprt = true
 		elseif collision(p, fiente)
@@ -599,31 +587,10 @@ add(fientes,{
     timer = 0
 })
 end
- 
- function update_flaque()
- 
- 
-end 
- 
-function create_flaque()
 
+function draw_flaques()
+	spr(48,flaque.x,flaque.y)
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -->8
 --mama
 --function move_mama()
