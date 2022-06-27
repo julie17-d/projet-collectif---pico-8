@@ -132,7 +132,8 @@ function update_pigeons()
 	for pigeon in all(pigeons) do
 		pigeon.x-= 0.5
 
-		if pigeon.x > p.x then
+		if pigeon.x < p.x+15
+		and pigeon.x > p.x -8 then
 			new_fientes = {
         	x=pigeon.x,
         	y=pigeon.y,
@@ -288,8 +289,8 @@ function draw_game()
 	end
 	if ( affichage!=nil) then print(affichage,10,10,9)
  end
-	for f in all (fientes) do
-		draw_fientes()
+	for f in all(fientes) do
+		spr(19,f.x,f.y)
 	end
 
 --blood
@@ -369,6 +370,8 @@ function update_game()
 	 spawn_waves(rnd(7))
 	end
 	update_waves()
+
+	update_fientes()
 	
 	--sang/blood
 	
@@ -456,6 +459,7 @@ function update_fientes()
             del(fientes,fiente)
         end
 		if collision(p, fiente) then
+			del(fientes, fiente)
 			p.life -= 1
 		end	
 		if p.life ==0 then
