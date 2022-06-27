@@ -252,10 +252,10 @@ end
 
 function draw_explosions2()
 
-	circ(p.x,p.y,2,11)
+
 
 	for e2 in all(explosions2) do
-		circ(e2.x,e2.y,e.timer/3,8+e2.timer%3)
+		circ(e2.x,e2.y,e2.timer/3,8+e2.timer%3)
 	end
 end
 	
@@ -430,7 +430,7 @@ function update_game()
 	
 	--explosions
 	update_explosions()
-	update_explosion2()
+	update_explosions2()
 	
 	--nuage
 	
@@ -505,7 +505,7 @@ function spawn_waves(amount)
  for i=1, amount do
 	add(waves,{
 		x=rnd(p.x+168),
-		y=rnd(p.y+50)+80,
+		y=rnd(p.y+50)+85,
 		speed=0.05
 	})
  end 
@@ -561,6 +561,11 @@ function update_fientes()
         if fiente.y > p.y+60 then 
             del(fientes,fiente)
         end
+		 if collision(p, fiente) then
+		create_explosions2(p.x,
+		 	p.y)
+		 	del(fientes,fiente)
+		 end
 		if collision(p, fiente)
 		and first_sprt == false then
 			del(fientes, fiente)
