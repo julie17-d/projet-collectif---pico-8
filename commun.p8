@@ -4,7 +4,7 @@ __lua__
 function _init()
  
  --player
-	p={x=60,y=60,speed=1}
+	p={x=60,y=60,speed=1, life=3}
 	
 	--nuage
  clouds={}
