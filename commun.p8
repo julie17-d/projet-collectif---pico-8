@@ -20,6 +20,9 @@ function _init()
 	--vagues
 	waves={}
 	
+	--voiture
+	cars={}
+	
 	--explosions
 	explosions={}
 
@@ -279,6 +282,12 @@ function draw_game()
 	 spr(65,v.x,v.y,2,1)
 	end
 	
+	--voiture
+	
+	for car in all(cars) do 
+	 spr(39,car.x,car.y,4,2)
+	end
+	
 	--explosions
 	
 	draw_explosions() 
@@ -364,11 +373,11 @@ function update_game()
 		spawn_pigeons (rnd(20))
 	end
 	update_pigeons()
-	end
+
 	
 	--mama
 	
-	flying()
+--	flying()
 	
 	--explosions
 	update_explosions()
@@ -379,6 +388,12 @@ function update_game()
 	 spawn_clouds(rnd(7))
 	end
 	update_clouds()
+	
+	--voitures
+		if #cars==0 then
+	 spawn_cars(rnd(7))
+	end
+	update_cars()
 	
 	--vagues
 	
@@ -405,6 +420,7 @@ function update_game()
 	
 	camera_follow()
 	
+end
 end
 -->8
 --nuage 
@@ -643,7 +659,28 @@ end
 
  
 -->8
---flying
+--voiture
+
+--cars 
+function spawn_cars(amount)
+ gap=(128-8*amount)/(amount+5)
+ for i=1, amount do
+	add(cars,{
+		x=rnd(p.x+168),
+		y=ceil(rnd(20)),
+		speed=0.1
+	})
+ end 
+end
+
+function update_cars()
+	for car in all(cars) do
+		car.x-= car.speed
+		if car.x < p.x-68 then
+			del(cars,car)
+		end
+	end
+end
 
 
 __gfx__
