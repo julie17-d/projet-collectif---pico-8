@@ -154,7 +154,7 @@ function update_pigeons()
 			if collision(pigeon,b) then
 		 	create_explosions(pigeon.x,
 		 	pigeon.y)
-		 	explode(pigeon.x,pigeon.y)
+--		 	explode(pigeon.x,pigeon.y)
 				pigeon.life-=1 
 				if pigeon.life==0 then
 			 	del(pigeons,pigeon)
@@ -274,7 +274,7 @@ function draw_game()
 	--waves
 	
 	for v in all(waves) do
-	 spr(96,v.x,v.y,2,2)
+	 spr(65,v.x,v.y,2,1)
 	end
 	
 	--explosions
@@ -294,7 +294,7 @@ function draw_game()
 
 --blood
 
-draw_blood()
+--draw_blood()
 	
 	--score
 	
@@ -372,7 +372,7 @@ function update_game()
 	
 	--sang/blood
 	
-	update_blood()
+	--update_blood()
 	
 	--camera
 	
@@ -407,7 +407,7 @@ function spawn_waves(amount)
  for i=1, amount do
 	add(waves,{
 		x=rnd(p.x+168),
-		y=81,
+		y=ceil(rnd(85)),
 		speed=0.05
 	})
  end 
@@ -528,14 +528,15 @@ end
 --blood
 
 --add a particule
-function addblood(x,y,age)
- local bl={
-           bl.x=x,
-           bl.y=y,
-           bl.age=0
- }
- add (blood,bl)
-end
+--function addblood(x,y,age)
+-- local bl={
+       -- bl.x=x,
+       -- bl.y=y,
+       -- bl.age=0
+-- }
+-- add (blood,bl)
+-- end
+--end
 
 --spawn a trail
 
@@ -551,27 +552,27 @@ end
 
 --explode
 
-function explode(x,y,r,c_table,num)
- for i=0, num do
-  add_fx(
-  x,        
-  y,         
-  30+rnd(25)
- end
-end
+--function explode(x,y,r,num)
+-- for i=0, num do
+ -- add_fx(
+ -- x,        
+ -- y,         
+ -- 30+rnd(25)
+-- end
+--end
 
-function update_blood()
-  for bl in all(blood) do 
-   bl.age+=1
-   if bl.age>bl.mage then 
-    del(blood,blood{i})
-   end
-  end
- end
+--function update_blood()
+--  for bl in all(blood) do 
+ --  bl.age+=1
+ --  if bl.age>bl.mage then 
+  --  del(blood,blood{i})
+ --  end
+ -- end
+-- end
 
-function draw_blood()  
+--function draw_blood()  
 
-	circ(pigeons.x,pigeons.y,2,8)
+--	circ(pigeons.x,pigeons.y,2,8)
 
  
 -->8
@@ -613,10 +614,10 @@ __gfx__
 0000000000000000000070000000000000000000eeeeeeeeeeeeeeee66666666660066666666600666666666000000000000000000000000cccccccc00000000
 dddddddd00000000000000000000000000000000eeeeeeeeeeeeeeee66666666666666666666666666666666eeeeeeeeeeeeee111111111111eeeeeeeeeeeeee
 dddddddd00000000000000000000000000000000eeeeeeeeeeeeeeee6666666666666666666666666666666644444eeeeeeee2111111111111222222222eeeee
-dddddddd00000000000000000000000000000000eeeeeeeeeeeeeeee6666666666666666666666666666666644444eeeeeeee2111111111111222222222eeeee
-dddddddd00000000000000000000000000000000222222222eeeeee16666666666666666666666666666666644444e9e9e9e92111111111111222222222eeeee
-dddddddd000000000000000000000000000000002222222229e9e9e16666666666660000000066666666666644a449e92222221111111111112222222229e9e9
-6666666600000000000000000000000000000000222222222e9e9e916666666666002222888066666666666644444444222222111111111111222222222e9e9e
+dddddddd00777000777007770000000000000000eeeeeeeeeeeeeeee6666666666666666666666666666666644444eeeeeeee2111111111111222222222eeeee
+dddddddd077c00077c0077c00000000000000000222222222eeeeee16666666666666666666666666666666644444e9e9e9e92111111111111222222222eeeee
+dddddddd07cc707ccc707cc700000000000000002222222229e9e9e16666666666660000000066666666666644a449e92222221111111111112222222229e9e9
+666666667c00c7cc0cc7cccc0000000000000000222222222e9e9e916666666666002222888066666666666644444444222222111111111111222222222e9e9e
 66666666000000000000000000000000000000002222222229999991666666666002888888880666666666661144444422222211111111111122222aa2244449
 66666666000000000000000000000000000000002222a2222444444166666660002880080088000666666666111144a422222211111111111122222aa2244449
 66666666666666666666666666666666000000002222a2222a44444166660000228800080008880000066666111114442222a211111111111122222aa2244a49
