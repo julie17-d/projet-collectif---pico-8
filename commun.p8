@@ -139,7 +139,7 @@ function update_pigeons()
 			new_fientes = {
         	x=pigeon.x,
         	y=pigeon.y,
-        	speed=rnd(3)
+        	speed=rnd(2)
     		}
     		add(fientes, new_fientes)
 		end
@@ -364,6 +364,7 @@ function update_game()
 		spawn_pigeons (rnd(20))
 	end
 	update_pigeons()
+	end
 	
 	--mama
 	
@@ -388,6 +389,13 @@ function update_game()
 
 	--fientes
 	update_fientes()
+	
+	--flaque
+	update_flaque()
+	create_flaque()
+	
+	if #flaque.time==2 then
+	del (flaque)
 	
 	--sang/blood
 	
@@ -509,10 +517,15 @@ add(fientes,{
 })
 end
  
+ function update_flaque()
+ 
+  if fiente.y == 60 then 
+  create_flaque()
+  end
+end 
  
 function create_flaque()
  add(flaque,{
-    x=new_fientes.x,
     y=new_fientes.y,
     timer = 0
  })
