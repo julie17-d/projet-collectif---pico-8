@@ -407,7 +407,7 @@ function spawn_waves(amount)
  for i=1, amount do
 	add(waves,{
 		x=rnd(p.x+168),
-		y=ceil(rnd(85)),
+		y=rnd(p.y+50)+80,
 		speed=0.05
 	})
  end 
