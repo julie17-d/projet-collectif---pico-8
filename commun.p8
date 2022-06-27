@@ -16,6 +16,9 @@ function _init()
 	
 	}
 	
+	p={x=60,y=60,speed=1, life=3, timer=0}
+	first_sprt = fget(1,0)
+	
 	--nuage
  clouds={}
  
@@ -226,7 +229,7 @@ end
 --game over 
 function update_gameover()
  text_timer+=1
- if (btn(😐)) _init()
+ if (⬅️) _init()
 end
 
 function draw_gameover()
@@ -238,7 +241,7 @@ function draw_gameover()
  	col=10
  end
  print("score:"..score,36,56,col)
- print("😐(m) pour reessayer",38,66,10)
+ print("⬅️ pour reessayer",38,66,10)
 end
 
 -->8
@@ -272,7 +275,6 @@ function draw_game()
 		palt(7,true)
  	palt(0,false)
 	 spr(mama_sprite,900,40,4,4)
-  print(mama_sprite)
   palt(0,true)
  	palt(7,false)
 	
@@ -297,10 +299,8 @@ function draw_game()
 	for b in all(bullets) do
 		spr(18,b.x,b.y)
 	end
-	if ( affichage!=nil) then print(affichage,10,10,9)
- end
 	for f in all(fientes) do
-		spr(19,f.x,f.y)
+		draw_fientes()
 	end
 
 --blood
@@ -310,17 +310,26 @@ function draw_game()
 	--score
 	
 	print("score "..score,cam_x+7,2,7)
-	
-	--vie
-	
- 	spr(34,cam_x+95,1)
- 	spr(34,cam_x+105,1)
- 	spr(34,cam_x+115,1)
- 	
+
  	--flaque
  	function draw_flaque ()
  	 spr(48,x,y,1)
  	end
+
+		--vie
+	if p.life == 3 then
+	 	spr(34,cam_x+95,1)
+ 		spr(34,cam_x+105,1)
+ 		spr(34,cam_x+115,1)
+	elseif p.life == 2 then
+		spr(35,cam_x+95,1)
+ 		spr(34,cam_x+105,1)
+ 		spr(34,cam_x+115,1)
+	elseif p.life == 1 then
+		spr(35,cam_x+95,1)
+ 		spr(35,cam_x+105,1)
+ 		spr(34,cam_x+115,1)
+	end
 end
 
 
@@ -388,6 +397,7 @@ function update_game()
 	end
 	update_waves()
 
+	--fientes
 	update_fientes()
 	
 	--sang/blood
@@ -476,10 +486,19 @@ function update_fientes()
         if fiente.y > p.y+10 then 
             del(fientes,fiente)
         end
-		if collision(p, fiente) then
+		if collision(p, fiente)
+		and first_sprt == false then
 			del(fientes, fiente)
---		p.life -= 1
-		end	
+			p.life -= 1
+			first_sprt = true
+		elseif collision(p, fiente)
+		and first_sprt == true then
+			p.timer += 1
+		end
+		if p.timer == 70 then
+			first_sprt = false
+			p.timer = 0
+		end
 		if p.life ==0 then
 			state= "game over"
 		
