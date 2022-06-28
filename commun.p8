@@ -8,6 +8,13 @@ function _init()
 	p={x=75,y=75,speed=1, life=3, timer=0}
 	first_sprt = fget(1,0)
 	
+	--shake
+	scr = {}
+	scr.x = 0
+	scr.y = 0
+	scr.intensity = 0
+ scr.shake= 5
+	
 	--nuage
  clouds={}
  
@@ -236,8 +243,8 @@ function draw_explosions()
 		circ(e.x,e.y,e.timer/3,8+e.timer%3)
 	end
 end
-	
--->8
+
+
 --explosion 2
 
 --explosions2
@@ -281,13 +288,27 @@ end
 
 function draw_explosions3()
 
-
-
 	for e3 in all(explosions3) do
-		circ(e3.x,e3.y,e3.timer/3,8+e3.timer%3)
+		circ(e3.x,e3.y,12,e3.timer/3,8+e3.timer%3)
 	end
 end
 	
+
+
+	
+
+
+	
+-->8
+--shake 
+
+function screenshake(nb)
+
+ scr.shake= nb
+
+end
+
+
 
 
 	
@@ -374,6 +395,22 @@ function draw_game()
 
 --draw_blood()
 	
+	--shake 
+	
+	 function camera_pos()
+  if(scr.shake > 0) then 
+   scr.x=(rnd(2)-1)*scr.intensity
+   scr.y=(rnd(2)-1)*scr.intensity
+   scr.shake -=1
+  
+  else
+   scr.x=0
+   scr.y=0
+  end
+ camera(scr.x,scr.y)
+  end
+
+	
 	--score
 	
 	print("score "..score,cam_x+7,2,7)
@@ -446,6 +483,12 @@ function update_game()
  	end
  	
  	--temps
+ 	
+ 	--shake
+camera_pos()
+
+screenshake(nb)
+
 	
 	--balles
 	
@@ -591,6 +634,7 @@ function update_fientes()
 			del(fientes, fiente)
 			create_explosions2(p.x,
 		 	p.y)
+		 	screenshake(10)
 			p.life -= 1
 			first_sprt = true
 		elseif collision(p, fiente)
