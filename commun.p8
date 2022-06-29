@@ -84,7 +84,9 @@ function _update60()
  else 
   text_timer+=1 
   laughing()
-  if (btnp(⬇️)) then state = "intro"
+  if btnp(⬇️) then
+	state = "intro"
+	p.life = 3
  	end
 	end
 end
@@ -485,7 +487,6 @@ function update_game()
 	flaque.x+=p.speed
 	end
 	if (btnp(❎)) shoot()
-	--if (btnp(🅾️)) then scene="intro"
  	if p.x < 0 then
  		p.x = 0
  	end
