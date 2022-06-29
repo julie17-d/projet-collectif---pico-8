@@ -65,7 +65,7 @@ function _init()
 	mehmet_sprite=1
 	d= 4
 	mama_sprite=192
-	mama={x=0,y=20,speed=1,life=50, timer=0}
+	mama={x=0,y=20,speed=1,life=30, timer=0}
 	d2= 36
 	skull_sprite=64
 	d3=8
@@ -81,12 +81,13 @@ function _update60()
 
  if (state=="intro") then update_intro()
  elseif (state=="game") then update_game()
+ elseif (state=="gamewon") then update_gamewon()
  else 
   text_timer+=1 
   laughing()
   if btnp(⬇️) then
 	state = "intro"
-	p.life = 3
+	_init()
  	end
 	end
 end
@@ -99,6 +100,7 @@ function _draw()
 	--game state
 	if (state=="intro") then draw_intro()
 	elseif (state=="game") then draw_game()
+	elseif (state=="gamewon") then draw_gamewon()
 	else  draw_gameover()
  end
 end
@@ -327,10 +329,11 @@ end
 function draw_intro()
  cls(3)
  palt(0,false)
- map(005,024,0,0,26,9)
- print("ca vole pas haut",30,63,0)
- print("press ⬆️ to start",30,83)
+ map(005,024,p.x-60,p.y-75	,26,9)
+ print("ca vole pas haut",p.x-30,63,0)
+ print("press ⬆️ to start",p.x-30,83)
  palt(0,true)
+
 end
 
 function draw_game()
@@ -462,6 +465,13 @@ function draw_gameover()
 
 end
 
+function draw_gamewon()
+	cls(2)
+	drawblood()
+	print("game won!",p.x-13,p.y-30)
+	print("score:"..score,p.x-10,p.y-20,col)
+	print("⬇️ pour reessayer",p.x-29,p.y-10,10)
+end
 
 -->8
 --update
@@ -470,6 +480,14 @@ function update_intro()
  if (btnp(⬆️)) then
  state="game"
  end
+end
+
+function update_gamewon()
+	makeblood(10,60,60)
+	if (btn(⬇️)) then
+		state = "intro"
+		_init()
+	end
 end
 
 function update_game()
@@ -745,7 +763,7 @@ function update_mama()
 	 mama.x=900
 	end
 	
---		collision/fientesm
+--		collision/fientes
 
 if mama.x <  (p.x+1)
 		and mama.x > (p.x-1) then
@@ -761,13 +779,13 @@ if mama.x <  (p.x+1)
 	   	screenshake(10)
 	    end
 		if collision(mama,b) then 
-	    makeblood(10)
+	    makeblood(10,mama.x+16,mama.y+16)
 	    mama.life -=1
 	    end
 			 	if mama.life ==0 then 
 			   	del(mama)
 			   	score+=10000
-			   	state = "gameover"
+			   	state = "gamewon"
 		  	end
 		 end
 	end
@@ -782,11 +800,11 @@ end
 
 
 
-function makeblood(nb)
+function makeblood(nb,x,y)
  while (nb > 0) do 
   bl = {}
-  bl.x =mama.x+16
-  bl.y =mama.y+16
+  bl.x =x
+  bl.y =y
   bl.col =flr(rnd(16))
   bl.dx =rnd(2)-1
   bl.dy =rnd(2)-1
