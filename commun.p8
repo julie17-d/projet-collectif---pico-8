@@ -12,6 +12,9 @@ function _init()
 	--shake
 	scr = {x =0,y =0 ,intensity = 5,shake = 0}
 	
+	--lignes
+
+	ligne={text="\n\n dans une galaxie pas \n\n si lointaine. \n\n nous avons tous vecu des\n\n mesaventures avec les pigeons,\n\n qui soit nous ont deja\n\n defequer dessus en marchant,\n\n soit en dessous dun arbre quand\n\n nous souhaitons\n\n de profiter de lombre\n\n ou sur notre voiture quon\n\n vient a peine de laver.\n\n dans notre jeu on se venge en \n\n les attaquant :)\n\n appuyer sur ➡️ pour commencer \n\n a les detruire ",x=0,y=128}
 	
 	--nuage
  clouds={}
@@ -49,12 +52,13 @@ function _init()
 	mfientes={}
 	fientes={}
 	text_timer=0
-	
-	--cherche 
+
+	createstars() 
 	
 	--game state
 	
-	state="intro"
+ 	state="dialogue"
+
 
 	--camera
 	
@@ -69,6 +73,9 @@ function _init()
 	d2= 36
 	skull_sprite=64
 	d3=8
+
+	--temps
+	last=time()
 	
 	--sfx
 	
@@ -80,6 +87,7 @@ end
 function _update60()
 
  if (state=="intro") then update_intro()
+ elseif (state =="dialogue") then update_dialogue()
  elseif (state=="game") then update_game()
  else 
   text_timer+=1 
@@ -96,6 +104,7 @@ function _draw()
 	
 	--game state
 	if (state=="intro") then draw_intro()
+	elseif (state=="dialogue") then draw_dialogue()
 	elseif (state=="game") then draw_game()
 	else  draw_gameover()
  end
@@ -104,13 +113,13 @@ end
 
 
 -->8
---bullets
+--bullets/text 
 
 function shoot()--tire 
 	new_bullet={--creer nouvelle balle
 		x=p.x,
 		y=p.y,
-		speed=4--
+		speed=4
 	}
 	add(bullets, new_bullet)
 	sfx(0)
@@ -122,6 +131,15 @@ function update_bullets()
 		if (b.y<-8) del(bullets,b)
 	end
 end
+
+
+function update_lignes()
+	ligne.y-=0.3
+	if (ligne.y<-1) then del(lignes,ligne)
+end
+end
+
+
 -->8
 --camera
 
@@ -317,6 +335,22 @@ end
 
 
 
+--stars
+
+function createstars()
+	stars={}
+	for i=1,20 do 
+	local newstar={
+	x=rnd(128),
+	y=rnd(128),
+	col= rnd({7,9,14,15}),
+	speed=4
+	}
+	add(stars,newstar)
+	end
+   end
+   
+   
 	
 
 
@@ -331,6 +365,18 @@ function draw_intro()
  palt(0,true)
 end
 
+function draw_dialogue()
+	cls()
+	map(021,023,0,0,26,9)
+   
+	print(ligne.text,ligne.x,ligne.y,10)
+   
+	for s in all (stars) do 
+	 pset(s.x,s.y,s.col)
+	 end
+   end
+   
+   
 function draw_game()
 	cls()
 	map(0,0,0,0)
@@ -480,20 +526,17 @@ function update_gamewon()
 end
 
 function update_dialogue()
- update_lignes()
- for s in all(stars) do 
-  s.y+=s.speed
-  if s.y > 128 then
-   s.y=0
-   s.x=rnd(128)
-   if (btnp(➡️)) then 
-    state="intro"
-   end
-  end
- end
-
-end
-
+	update_lignes()
+	for s in all(stars) do 
+	 s.y+=s.speed
+	 if s.y > 128 then
+	  s.y=0
+	  s.x=rnd(128)
+	  if (btnp(➡️)) then 
+	   state="intro"
+	  end
+	 end
+	end
 function update_game()
 
 --player
@@ -1179,7 +1222,6 @@ __sfx__
 __music__
 00 41024444
 00 01020444
-00 41424344
 00 06074344
 04 08094344
 
