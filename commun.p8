@@ -79,8 +79,7 @@ function _init()
 	
 	--sfx
 	
-	sfx(1)
-	music(0)
+	music(3)
 	
 end
 
