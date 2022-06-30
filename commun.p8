@@ -359,7 +359,7 @@ function createstars()
 function draw_intro()
  cls(3)
  palt(0,false)
- map(005,024,0,0,26,9)
+ map(005,024,0,0,26,8)
  print("ca vole pas haut",30,63,0)
  print("press ⬆️ to start",30,83)
  palt(0,true)
@@ -537,6 +537,7 @@ function update_dialogue()
 	  end
 	 end
 	end
+end
 function update_game()
 
 --player
